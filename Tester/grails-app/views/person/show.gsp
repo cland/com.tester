@@ -42,6 +42,18 @@
 				</g:if>
 			
 			</ol>
+			<table class="dialog">
+						<tr class="prop">
+							<td valign="top" class="name"><g:message code="person.phones.label" default="Phones" /></td>
+							<td valign="top" style="text-align: left;" class="value">
+							<ul>
+								<g:each in="${personInstance.phones}" var="p">
+									<li>${p?.encodeAsHTML()}</li>
+								</g:each>
+							</ul>
+							</td>
+						</tr>
+						</table>
 			<g:form url="[resource:personInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
 					<g:link class="edit" action="edit" resource="${personInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
