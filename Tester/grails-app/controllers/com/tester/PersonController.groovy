@@ -25,17 +25,42 @@ class PersonController {
 
     @Transactional
     def save(Person personInstance) {
+		println(params)
         if (personInstance == null) {
             notFound()
             return
         }
 
-        if (personInstance.hasErrors()) {
-            respond personInstance.errors, view:'create'
-            return
-        }
+		//** ATTEMPT TO SAVE THE PHONES BUT NOT WORKING **//
+		
+		println("Manually binding the phones ?? could be a better way")
+		personInstance.phones.clear()
+		int index = 0
+		int cnt = 0
+		def pEntry = params.get('phones[' + index + ']')
+		while(pEntry != null){
+			println(pEntry)
+			Phone p = new Phone(pEntry)
+			if(pEntry?.deleted=='false'){
+				p?.index = cnt
+				personInstance?.addToPhones(p)
+				cnt++
+			}
+			//next p
+			index++
+			pEntry = params.get('phones[' + index + ']')
+		}
+		//** END ATTEMPT ** //
+		
+		println("Saving instance...")
+        personInstance.save //flush:true
+		if(personInstance.hasErrors()){
+			println(personInstance.errors)
+			respond personInstance.errors, view:'create'
+			return
+		}
+		
 
-        personInstance.save flush:true
 
         request.withFormat {
             form {
@@ -61,7 +86,23 @@ class PersonController {
             respond personInstance.errors, view:'edit'
             return
         }
-
+		println("Manually binding the phones ?? could be a better way")
+		personInstance.phones.clear()
+		int index = 0
+		int cnt = 0
+		def pEntry = params.get('phones[' + index + ']')
+		while(pEntry != null){
+			println(pEntry)
+			Phone p = new Phone(pEntry)
+			if(pEntry?.deleted=='false'){
+				p?.index = cnt
+				personInstance?.addToPhones(p)
+				cnt++
+			}
+			//next p
+			index++
+			pEntry = params.get('phones[' + index + ']')
+		}
         personInstance.save flush:true
 
         request.withFormat {

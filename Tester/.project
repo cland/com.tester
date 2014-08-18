@@ -26,7 +26,7 @@
 		<link>
 			<name>.link_to_grails_plugins</name>
 			<type>2</type>
-			<location>C:/workspace-grails/Tester/target/work/plugins</location>
+			<location>G:/git/cland/com.tester/Tester/target/work/plugins</location>
 		</link>
 	</linkedResources>
 </projectDescription>
