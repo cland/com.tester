@@ -115,25 +115,18 @@ log4j = {
 }
 
 
-
 // Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.tester.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.tester.UserRole'
-grails.plugins.springsecurity.authority.className = 'com.tester.Role'
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.acltest.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.acltest.UserRole'
+grails.plugin.springsecurity.authority.className = 'com.acltest.Role'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/':                              ['permitAll'],
+	'/index':                         ['permitAll'],
+	'/index.gsp':                     ['permitAll'],
+	'/assets/**':                     ['permitAll'],
+	'/**/js/**':                      ['permitAll'],
+	'/**/css/**':                     ['permitAll'],
+	'/**/images/**':                  ['permitAll'],
+	'/**/favicon.ico':                ['permitAll']
+]
 
-// Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.tester.RoleGroup'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.tester.RoleGroupRole'
-grails.plugins.springsecurity.authority.className = 'com.tester.Role'
-
-// Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.tester.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.tester.UserRoleGroup'
-grails.plugins.springsecurity.authority.className = 'com.tester.RoleGroup'
-
-// Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.tester.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.tester.UserRoleGroup'
-grails.plugins.springsecurity.authority.className = 'com.tester.RoleGroup'
-grails.plugins.springsecurity.requestMap.className = 'com.tester.Requestmap'
-grails.plugins.springsecurity.securityConfigType = 'Requestmap'

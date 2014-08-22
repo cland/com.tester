@@ -58,7 +58,26 @@ SpringSecurityUtils.doWithAuth('default') {
 			case "DEVELOPMENT":
 				if(doBootStrap){
 				
-				
+					def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true) 
+					def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
+					def workerRole = new Role(authority: 'ROLE_CWO').save(flush: true)
+					
+					def adminGroup = new RoleGroup(authority:'GROUP_ADMIN')
+					def userGroup = new RoleGroup(authority:'GROUP_USER')
+					def workerGroup = new RoleGroup(authority:'GROUP_CWO')
+					
+					RoleGroupRole.create adminRole, adminGroup, true
+					RoleGroupRole.create userRole, userGroup, true
+					RoleGroupRole.create workerRole, workerGroup, true
+					
+					def testUser = new User(username: 'me', password: 'password') testUser.save(flush: true)					
+					UserRoleGroup.create testUser, adminGroup, true
+					
+					testUser = new User(username: 'user', password: 'password') testUser.save(flush: true)
+					UserRoleGroup.create testUser, userGroup, true
+					
+					testUser = new User(username: 'user', password: 'password') testUser.save(flush: true)
+					UserRole.create testUser, workerRole, true
 					
 				} //end if doBootStrap
 				break

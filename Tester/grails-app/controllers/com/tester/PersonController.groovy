@@ -29,39 +29,16 @@ class PersonController {
         if (personInstance == null) {
             notFound()
             return
-        }
-
-		//** ATTEMPT TO SAVE THE PHONES BUT NOT WORKING **//
+        }		
 		
-		println("Manually binding the phones ?? could be a better way")
-		personInstance.phones.clear()
-		int index = 0
-		int cnt = 0
-		def pEntry = params.get('phones[' + index + ']')
-		while(pEntry != null){
-			println(pEntry)
-			Phone p = new Phone(pEntry)
-			if(pEntry?.deleted=='false'){
-				p?.index = cnt
-				personInstance?.addToPhones(p)
-				cnt++
-			}
-			//next p
-			index++
-			pEntry = params.get('phones[' + index + ']')
-		}
-		//** END ATTEMPT ** //
+        personInstance.save flush:true
 		
-		println("Saving instance...")
-        personInstance.save //flush:true
 		if(personInstance.hasErrors()){
 			println(personInstance.errors)
 			respond personInstance.errors, view:'create'
 			return
 		}
 		
-
-
         request.withFormat {
             form {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'personInstance.label', default: 'Person'), personInstance.id])
